@@ -7,7 +7,6 @@ import psycopg2
 
 # 定数（環境変数から取得）
 DATABASE_URL = os.getenv('DATABASE_URL', None)
-
 app = Flask(__name__)
 
 
@@ -35,7 +34,7 @@ def download():
     res = make_response()
     res.data = f.getvalue()
     res.headers['Content-Type'] = 'text/csv'
-    res.headers['Content-Disposition'] = 'attachment; filename='+ "car-stock" +'.csv'
+    res.headers['Content-Disposition'] = 'attachment; filename=' + "car-stock" + '.csv'
     return res
 
 
