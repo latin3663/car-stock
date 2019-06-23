@@ -38,7 +38,7 @@ def download():
 
             writer.writerow(["ID", "車種", "色", "ミッション", "走行距離", "年式", "車検", "価格", "URL", "データ取得日"])
 
-            cur.execute("SELECT * FROM car_stock.stock")
+            cur.execute("SELECT * FROM car_stock.stock order by to_number(id, '99999') desc")
             stockRows = cur.fetchall()
 
             for row in stockRows:
