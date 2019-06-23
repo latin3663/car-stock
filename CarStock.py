@@ -65,6 +65,7 @@ for pageIndex in range(1, maxPage+1):
                 
                 soup = getSoup(carLink)
                 specs = soup.select("div.top-spec")
+                imgs = soup.select("img.sp-thumbnail")
 
                 insertSql = "INSERT INTO car_stock.stock VALUES ("
 
@@ -80,6 +81,8 @@ for pageIndex in range(1, maxPage+1):
                     "価格" : str(specs[6].text).strip(),
                     "URL" : carLink,
                 }
+                for i, img in enumerate(imgs):
+                    newStock["img" + str(i)] = img
                 
                 insertSql += id
                 insertSql += ", '" + str(specs[0].text).strip() + "'"
@@ -111,7 +114,8 @@ if insertCount >= 0:
     for newStock in newStocks:
         stockColumns.append(
             CarouselColumn(
-                text=newStock["車種"] + "\n" + newStock["価格"],
+                text=newStock["車種"] + "\n" + newStock["ミッション"] + "\n" + newStock["走行距離"] + ", " + newStock["年式"] + "\n" + newStock["価格"],
+                thumbnailImageUrl="https://res.cloudinary.com/dxgpco1tj/image/fetch/w_400/" + newStock["img0"],
                 actions=[
                     URIAction(
                         type="uri",
