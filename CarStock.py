@@ -82,7 +82,7 @@ for pageIndex in range(1, maxPage+1):
                     "URL" : carLink,
                 }
                 for i, img in enumerate(imgs):
-                    newStock["img" + str(i)] = img
+                    newStock["img" + str(i)] = img["src"]
                 
                 insertSql += id
                 insertSql += ", '" + str(specs[0].text).strip() + "'"
