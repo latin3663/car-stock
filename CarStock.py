@@ -83,6 +83,7 @@ for pageIndex in range(1, maxPage+1):
                 conn.commit()
 
                 insertCount += 1
+                break
 
 if insertCount > 0:
     with psycopg2.connect(database_url) as conn:
