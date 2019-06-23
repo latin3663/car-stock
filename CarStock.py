@@ -130,7 +130,7 @@ if insertCount >= 0:
                 )
             )
 
-            messages = TextMessage(text="新規の在庫がありました")
+            # messages = TextMessage(text="新規の在庫がありました")
             for userIdRow in userIdRows:
-                line_bot_api.push_message(userIdRow[0], messages)
+                line_bot_api.push_message(userIdRow[0], templateMessage)
 
