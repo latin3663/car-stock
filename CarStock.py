@@ -43,6 +43,15 @@ for pageIndex in range(1, maxPage+1):
     with psycopg2.connect(database_url) as conn:
         with conn.cursor() as cur:
         
+            cur.execute("SELECT user_id FROM car_stock.line_user_id")
+            userIdRows = cur.fetchall()
+
+            messages = TextMessage(text="Hello world!! car-stock")
+            for userIdRow in userIdRows:
+                line_bot_api.push_message(userIdRow[0], messages)
+
+            break
+
             # 在庫の分だけループ
             for carDiv in carDivs:
                 carLink = carDiv.select("div > a")[0]["href"]
