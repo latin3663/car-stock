@@ -112,7 +112,7 @@ if insertCount > 0:
     for newStock in newStocks:
         stockColumns.append(
             CarouselColumn(
-                text=newStock["車種"] + "\n" + newStock["走行距離"] + ", " + newStock["年式"] + "\n" + newStock["価格"],
+                text=newStock["車種"] + ", " + newStock["走行距離"] + ", " + newStock["年式"] + "\n" + newStock["価格"],
                 thumbnail_image_url="https://res.cloudinary.com/dxgpco1tj/image/fetch/w_400/" + newStock["img0"],
                 actions=[
                     URIAction(
