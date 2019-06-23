@@ -83,7 +83,6 @@ for pageIndex in range(1, maxPage+1):
                 }
                 for i, img in enumerate(imgs):
                     newStock["img" + str(i)] = img["src"]
-                    print( newStock["img" + str(i)] )
                 
                 insertSql += id
                 insertSql += ", '" + str(specs[0].text).strip() + "'"
@@ -106,17 +105,15 @@ for pageIndex in range(1, maxPage+1):
                 # 通知メッセージ用にデータを保持しておく
                 newStocks.append(newStock)
                 insertCount += 1
-                break
 
 
-# if insertCount > 0:
-if insertCount >= 0:
+if insertCount > 0:
     thumbnail = "https://res.cloudinary.com/dxgpco1tj/image/fetch/w_400/" + newStock["img0"]
     stockColumns = []
     for newStock in newStocks:
         stockColumns.append(
             CarouselColumn(
-                text=newStock["車種"] + "\n" + newStock["ミッション"] + "\n" + newStock["走行距離"] + ", " + newStock["年式"] + "\n" + newStock["価格"],
+                text=newStock["車種"] + "\n" + newStock["走行距離"] + ", " + newStock["年式"] + "\n" + newStock["価格"],
                 thumbnail_image_url=thumbnail,
                 actions=[
                     URIAction(
