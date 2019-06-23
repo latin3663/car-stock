@@ -9,7 +9,7 @@ from linebot.models import (
     TemplateSendMessage,
     CarouselTemplate,
     CarouselColumn,
-    Action,
+    URIAction,
 )
 
 # 定数
@@ -107,7 +107,7 @@ if insertCount >= 0:
                             text="column1",
                             title="title1",
                             actions=[
-                                Action(
+                                URIAction(
                                     type="uri",
                                     label="開く",
                                     uri="https://www.youtube.com/?gl=JP&hl=ja",
@@ -118,7 +118,7 @@ if insertCount >= 0:
                             text="column2",
                             title="title2",
                             actions=[
-                                Action(
+                                URIAction(
                                     type="uri",
                                     label="開く",
                                     uri="https://www.youtube.com/?gl=JP&hl=ja",
