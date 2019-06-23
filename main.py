@@ -25,13 +25,13 @@ def download():
     with psycopg2.connect(DATABASE_URL) as conn:
         with conn.cursor() as cur:
 
-            writer.writerow(["ID", "車種", "色", "ミッション", "走行距離", "年式", "車検", "価格", "URL"])
+            writer.writerow(["ID", "車種", "色", "ミッション", "走行距離", "年式", "車検", "価格", "URL", "データ取得日"])
 
             cur.execute("SELECT * FROM car_stock.stock")
             stockRows = cur.fetchall()
 
             for row in stockRows:
-                writer.writerow([row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8]])
+                writer.writerow([row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9]])
 
     res = make_response()
     res.data = f.getvalue()
