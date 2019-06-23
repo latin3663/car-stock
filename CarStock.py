@@ -31,6 +31,8 @@ soup = getSoup("http://www.cornerstones.jp/stocklist")
 # ページの最大値を取得(ページボタンの数をカウント)
 maxPage = len(soup.select("#wpv-view-layout-1911-TCPID1869 > div.page.text-center.main-text > ul > li"))
 
+insertCount = 0
+
 # ページの分だけループ
 for pageIndex in range(1, maxPage+1):
 
@@ -43,15 +45,6 @@ for pageIndex in range(1, maxPage+1):
     with psycopg2.connect(database_url) as conn:
         with conn.cursor() as cur:
         
-            cur.execute("SELECT user_id FROM car_stock.line_user_id")
-            userIdRows = cur.fetchall()
-
-            messages = TextMessage(text="Hello world!! car-stock")
-            for userIdRow in userIdRows:
-                line_bot_api.push_message(userIdRow[0], messages)
-
-            break
-
             # 在庫の分だけループ
             for carDiv in carDivs:
                 carLink = carDiv.select("div > a")[0]["href"]
@@ -89,10 +82,16 @@ for pageIndex in range(1, maxPage+1):
                 # INSERT をコミット
                 conn.commit()
 
-                cur.execute("SELECT user_id FROM car_stock.line_user_id")
-                userIdRows = cur.fetchall()
+                insertCount += 1
 
-                messages = TextMessage(text="Hello world!!")
-                for userIdRow in userIdRows:
-                    line_bot_api.push_message(userIdRow[0], messages)
+if insertCount > 0:
+    with psycopg2.connect(database_url) as conn:
+        with conn.cursor() as cur:
+        
+            cur.execute("SELECT user_id FROM car_stock.line_user_id")
+            userIdRows = cur.fetchall()
+
+            messages = TextMessage(text="新規の在庫がありました")
+            for userIdRow in userIdRows:
+                line_bot_api.push_message(userIdRow[0], messages)
 
